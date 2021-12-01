@@ -11,4 +11,4 @@ def lbp_hist(img_path, color):
     proc = subprocess.Popen([prgm, img_path, color], stdout=subprocess.PIPE)
     img_hist = proc.stdout.readline()
     proc.wait()
-    return img_hist.decode("utf-8").split(',')
+    return img_hist.decode("utf-8").split(" | ").split(',')
