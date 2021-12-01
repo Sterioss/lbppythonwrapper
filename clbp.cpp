@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
     float histogramme[3][256] = {0};
     img_2_lbp_hist(img,histogramme);
     for (int i = 0; i < 3; i++) {
-        cout << " | ";
         cout << float_array_join(histogramme[i],256,',');
+        cout << endl;
     }
     return EXIT_SUCCESS;
 }
