@@ -28,20 +28,23 @@ int main(int argc, char **argv) {
         cout << "Image : " << file_path << " doesn't exist !" << endl;
         return EXIT_FAILURE;
     }
-    float histogramme[256] = {0};
+    float histogramme[3][256] = {0};
     img_2_lbp_hist(img,histogramme);
-    cout << float_array_join(histogramme,256,',');
+    for (int i = 0; i < 3; i++) {
+        cout << " | ";
+        cout << float_array_join(histogramme[i],256,',');
+    }
     return EXIT_SUCCESS;
 }
 
 // LBP FUNCTIONS
 
-void img_2_lbp_hist(Mat &img, float lbpHist[256]) {
+void img_2_lbp_hist(Mat &img, float lbpHist[3][256]) {
     for (int y = 1; y < img.rows - 1; y++) {
         for (int x = 1; x < img.cols - 1; x++) {
             for (int c = 0; c < img.channels(); c++) {
                 int decimal_value = lbp_encode_pixel(img, x, y, c);
-                lbpHist[decimal_value] = lbpHist[decimal_value] + 1;
+                lbpHist[c][decimal_value] = lbpHist[c][decimal_value] + 1;
             }
         }
     }
