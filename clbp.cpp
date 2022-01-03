@@ -33,14 +33,17 @@ int main(int argc, char **argv) {
         channels = 3;
         float histogramme[3][256] = {0};
         img_2_lbp_hist(img, histogramme);
+        for (int i = 0; i < channels; i++) {
+            cout << float_array_join(histogramme[i],256,',');
+            cout << endl;
+        }
     } else {
         float histogramme[1][256] = {0};
         img_2_lbp_hist(img, histogramme);
-    }
-
-    for (int i = 0; i < channels; i++) {
-        cout << float_array_join(histogramme[i],256,',');
-        cout << endl;
+        for (int i = 0; i < channels; i++) {
+            cout << float_array_join(histogramme[i],256,',');
+            cout << endl;
+        }
     }
     return EXIT_SUCCESS;
 }
