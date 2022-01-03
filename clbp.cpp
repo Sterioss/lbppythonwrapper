@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-    cout << float_array_join(finalHistogramme,256,',');
+    cout << float_array_join(finalHistogramme,16384,',');
     cout << endl;
     return EXIT_SUCCESS;
 }
