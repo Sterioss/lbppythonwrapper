@@ -34,6 +34,7 @@ int main(int argc, char **argv) {
     for(int y = 0; y < img.cols; y += img.cols / 8)
     {
         for(int x = 0; x < img.rows; x += img.rows / 8) {
+            std::fill(std::begin(histogramme), std::end(histogramme), 0);
             Mat sub = img(cv::Rect(y, x, (img.cols / 8), (img.rows / 8))).clone();
             img_2_lbp_hist(sub, histogramme);
             for (auto & i : histogramme) {
