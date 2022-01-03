@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
 // LBP FUNCTIONS
 
-void img_2_lbp_hist(Mat &img, float *lbpHist[]) {
+void img_2_lbp_hist(Mat &img, float **lbpHist) {
     for (int y = 1; y < img.rows - 1; y++) {
         for (int x = 1; x < img.cols - 1; x++) {
             for (int c = 0; c < img.channels(); c++) {
