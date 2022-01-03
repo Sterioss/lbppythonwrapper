@@ -35,9 +35,8 @@ int main(int argc, char **argv) {
     {
         for(int x = 0; x < img.rows; x += img.rows / 8) {
             memset(histogramme, 0, sizeof(histogramme));
-            cout << img.cols << ' ' << img.rows << endl;
-            //Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
-            //img_2_lbp_hist(sub, histogramme);
+            Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
+            img_2_lbp_hist(sub, histogramme);
             for (auto & i : histogramme) {
                 finalHistogramme[idx] = i[0];
                 idx++;
