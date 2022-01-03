@@ -29,17 +29,21 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
     float histogramme[1][256] = {0};
+    float finalHistogramme[16384] = {0};
+    int idx = 0;
     for(int y = 0; y < img.cols; y += img.cols / 8)
     {
         for(int x = 0; x < img.rows; x += img.rows / 8) {
             Mat sub = img(cv::Rect(y, x, (img.cols / 8), (img.rows / 8))).clone();
             img_2_lbp_hist(sub, histogramme);
             for (auto & i : histogramme) {
-                cout << float_array_join(i,256,',');
-                cout << endl;
+                finalHistogramme[idx] = i[0];
+                idx++;
             }
         }
     }
+    cout << float_array_join(finalHistogramme,256,',');
+    cout << endl;
     return EXIT_SUCCESS;
 }
 
