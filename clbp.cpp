@@ -30,7 +30,10 @@ int main(int argc, char **argv) {
     }
     float histogramme[3][256] = {0};
     img_2_lbp_hist(img,histogramme);
-    for (int i = 0; i < 3; i++) {
+
+    int channels = (color_mode == 1) ? 3 : 1;
+
+    for (int i = 0; i < channels; i++) {
         cout << float_array_join(histogramme[i],256,',');
         cout << endl;
     }
@@ -39,7 +42,7 @@ int main(int argc, char **argv) {
 
 // LBP FUNCTIONS
 
-void img_2_lbp_hist(Mat &img, float lbpHist[3][256]) {
+void img_2_lbp_hist(Mat &img, float *lbpHist[]) {
     for (int y = 1; y < img.rows - 1; y++) {
         for (int x = 1; x < img.cols - 1; x++) {
             for (int c = 0; c < img.channels(); c++) {
