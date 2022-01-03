@@ -29,11 +29,11 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
     float finalHistogramme[16384] = {0};
+    float histogramme[1][256] = {0};
     int idx = 0;
     for(int y = 0; y < img.cols; y += img.cols / 8)
     {
         for(int x = 0; x < img.rows; x += img.rows / 8) {
-            float histogramme[1][256] = {0};
             Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
             img_2_lbp_hist(sub, histogramme);
             for (auto & i : histogramme) {
