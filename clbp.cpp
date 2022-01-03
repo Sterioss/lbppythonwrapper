@@ -28,10 +28,15 @@ int main(int argc, char **argv) {
         cout << "Image : " << file_path << " doesn't exist !" << endl;
         return EXIT_FAILURE;
     }
-    float histogramme[3][256] = {0};
-    img_2_lbp_hist(img,histogramme);
-
-    int channels = (color_mode == 1) ? 3 : 1;
+    int channels = 1;
+    if (color_mode == 1) {
+        channels = 3;
+        float histogramme[3][256] = {0};
+        img_2_lbp_hist(img, histogramme);
+    } else {
+        float histogramme[1][256] = {0};
+        img_2_lbp_hist(img, histogramme);
+    }
 
     for (int i = 0; i < channels; i++) {
         cout << float_array_join(histogramme[i],256,',');
