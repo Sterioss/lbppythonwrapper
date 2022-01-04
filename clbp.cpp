@@ -31,7 +31,12 @@ int main(int argc, char **argv) {
     const int sizeHisto = 256 * (64 * img.channels());
     auto *finalHistogramme = new float[sizeHisto]();
     memset(finalHistogramme, 0, sizeHisto);
-    float histogramme[][256] = {0};
+
+    auto *histogramme = new float[img.channels()][256]();
+    for (int i = 0; i < img.channels(); i++) {
+        memset(histogramme[i], 0, 256);
+    }
+    //float histogramme[][256] = {0};
     int idx = 0;
 
     for(int y = 0; y < img.cols; y += img.cols / 8)
@@ -52,7 +57,7 @@ int main(int argc, char **argv) {
     }
     cout << float_array_join(finalHistogramme,sizeHisto,',');
     cout << endl;
-    return EXIT_SUCCESS;
+    //return EXIT_SUCCESS;
 }
 
 // LBP FUNCTIONS
