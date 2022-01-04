@@ -32,23 +32,16 @@ int main(int argc, char **argv) {
     auto *finalHistogramme = new float[sizeHisto]();
     memset(finalHistogramme, 0, sizeHisto);
 
-    auto *histogramme = new float[img.channels()][256]();
-    for (int i = 0; i < img.channels(); i++) {
-        memset(histogramme[i], 0, 256);
-    }
-    //float histogramme[][256] = {0};
+    float histogramme[256] = {0};
     int idx = 0;
-
-    for(int y = 0; y < img.cols; y += img.cols / 8)
-    {
-        for(int x = 0; x < img.rows; x += img.rows / 8) {
-            for (int i = 0; i < img.channels(); i++) {
-                memset(histogramme[i], 0, sizeof(histogramme[i]));
-            }
-            Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
-            img_2_lbp_hist(sub, histogramme);
-            for (int i = 0; i < img.channels(); i++) {
-                for (auto & j : histogramme[i]) {
+    for (int z = 0; z < img.channels(); z++) {
+        for(int y = 0; y < img.cols; y += img.cols / 8)
+        {
+            for(int x = 0; x < img.rows; x += img.rows / 8) {
+                memset(histogramme, 0, 256);
+                Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
+                img_2_lbp_hist(sub, histogramme, z);
+                for (auto & j : histogramme) {
                     finalHistogramme[idx] = j;
                     idx++;
                 }
@@ -62,13 +55,11 @@ int main(int argc, char **argv) {
 
 // LBP FUNCTIONS
 
-void img_2_lbp_hist(Mat &img, float lbpHist[][256]) {
+void img_2_lbp_hist(Mat &img, float lbpHist[256], int channel) {
     for (int y = 1; y < img.rows - 1; y++) {
         for (int x = 1; x < img.cols - 1; x++) {
-            for (int c = 0; c < img.channels(); c++) {
-                int decimal_value = lbp_encode_pixel(img, x, y, c);
-                lbpHist[c][decimal_value] = lbpHist[c][decimal_value] + 1;
-            }
+            int decimal_value = lbp_encode_pixel(img, x, y, channel);
+            lbpHist[decimal_value] = lbpHist[decimal_value] + 1;
         }
     }
     // COMMENT / UNCOMMENT FOR HISTOGRAM NORMALISATION

@@ -46,6 +46,6 @@ int lbp_encode_pixel(cv::Mat &img, int x, int y, int channel);
  * @param img the image
  * @param lbpHist histograme result
  */
-void img_2_lbp_hist(cv::Mat &img, float lbpHist[3][256]);
+void img_2_lbp_hist(cv::Mat &img, float lbpHist[256], int channel);
 
 #endif //CLBP_CLBP_H
