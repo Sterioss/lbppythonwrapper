@@ -28,18 +28,25 @@ int main(int argc, char **argv) {
         cout << "Image : " << file_path << " doesn't exist !" << endl;
         return EXIT_FAILURE;
     }
-    float finalHistogramme[16384] = {0};
-    float histogramme[1][256] = {0};
+    const int sizeHisto = 256 * (64 * img.channels());
+    auto *finalHistogramme = new float[sizeHisto]();
+    memset(finalHistogramme, 0, sizeHisto);
+    float histogramme[][256] = {0};
     int idx = 0;
+
     for(int y = 0; y < img.cols; y += img.cols / 8)
     {
         for(int x = 0; x < img.rows; x += img.rows / 8) {
-            memset(histogramme[0], 0, sizeof(histogramme[0]));
+            for (int i = 0; i < img.channels(); i++) {
+                memset(histogramme[i], 0, sizeof(histogramme[i]));
+            }
             Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
             img_2_lbp_hist(sub, histogramme);
-            for (auto & i : histogramme[0]) {
-                finalHistogramme[idx] = i;
-                idx++;
+            for (int i = 0; i < img.channels(); i++) {
+                for (auto & j : histogramme[i]) {
+                    finalHistogramme[idx] = j;
+                    idx++;
+                }
             }
         }
     }
@@ -50,7 +57,7 @@ int main(int argc, char **argv) {
 
 // LBP FUNCTIONS
 
-void img_2_lbp_hist(Mat &img, float lbpHist[1][256]) {
+void img_2_lbp_hist(Mat &img, float lbpHist[][256]) {
     for (int y = 1; y < img.rows - 1; y++) {
         for (int x = 1; x < img.cols - 1; x++) {
             for (int c = 0; c < img.channels(); c++) {
