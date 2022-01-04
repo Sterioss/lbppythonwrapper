@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-    cout << float_array_join(finalHistogramme,16384,',');
+    cout << float_array_join(finalHistogramme,sizeHisto,',');
     cout << endl;
     return EXIT_SUCCESS;
 }
