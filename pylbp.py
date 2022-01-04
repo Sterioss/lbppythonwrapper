@@ -8,8 +8,8 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 prgm = os.path.join(dir_path ,"clbp")
 
 def lbp_hist(img_path, color):
-    proc = subprocess.Popen([prgm, img_path, color], stdout=subprocess.PIPE)
-    line = proc.stdout.readline().replace('\n', '')
+    proc = subprocess.Popen([prgm, img_path, color], stdout=subprocess.PIPE, universal_newlines=True)
+    line = proc.stdout.readline().rstrip()
     output = line.decode("utf-8").split(',')
     proc.wait()
     return output
