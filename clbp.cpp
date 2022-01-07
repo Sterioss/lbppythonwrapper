@@ -35,13 +35,12 @@ int main(int argc, char **argv) {
     float histogramme[256] = {0};
     int idx = 0;
     for (int z = 0; z < img.channels(); z++) {
-        for(int y = 0; y < img.cols; y += img.cols / 8)
-        {
-            for(int x = 0; x < img.rows; x += img.rows / 8) {
-                memset(histogramme, 0, 256);
+        for (int y = 0; y < img.cols; y += img.cols / 8) {
+            for (int x = 0; x < img.rows; x += img.rows / 8) {
+                memset(histogramme, 0, sizeof(histogramme));
                 Mat sub = img(cv::Rect(x, y, (img.cols / 8), (img.rows / 8))).clone();
                 img_2_lbp_hist(sub, histogramme, z);
-                for (auto & j : histogramme) {
+                for (float j : histogramme) {
                     finalHistogramme[idx] = j;
                     idx++;
                 }
